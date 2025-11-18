@@ -29,7 +29,7 @@ export default function App() {
                             tankFlushCapacity={data.data.tankFlushCapacity}
                             towelLengthPerUse={data.data.towelLengthPerUse}
                         />
-                        <div className="md:grid-cols-1 lg:flex">
+                        <div className="md:grid-cols-1 lg:flex gap-6">
                             <GeneralConsume
                                 soapDispensePerUse={
                                     data.data.soapDispensePerUse

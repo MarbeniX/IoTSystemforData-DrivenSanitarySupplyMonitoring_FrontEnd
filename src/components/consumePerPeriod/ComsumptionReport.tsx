@@ -69,7 +69,7 @@ export default function ConsumptionReport() {
     const handleReturnToActual = () => setCurrentDate(actualDate);
 
     return (
-        <section className="font-sans w-full pt-6 px-6">
+        <section className="font-sans w-full">
             <h2 className="text-3xl font-medium text-neutral-800 mb-4">
                 Consumo por periodo
             </h2>

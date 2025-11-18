@@ -64,7 +64,7 @@ export default function YearlyGraphics({
                 >
                     {currentDate.getFullYear() === 2025 ? null : (
                         <FaChevronLeft />
-                    )}{" "}
+                    )}
                 </button>
 
                 <h3 className="text-xl font-semibold w-32 text-center capitalize">

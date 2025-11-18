@@ -90,6 +90,7 @@ export default function DateSelector({
         }
         return ""; // Fallback
     }, [currentDate, viewMode]);
+
     return (
         <div className="flex items-center justify-center gap-3 mb-4">
             {dateStatus === "future" && (
@@ -103,7 +104,10 @@ export default function DateSelector({
                 onClick={handlePrevDate}
                 className="text-neutral-600 cursor-pointer"
             >
-                <FaChevronLeft />
+                {viewMode === "year" &&
+                currentDate.getFullYear() === 2025 ? null : (
+                    <FaChevronLeft />
+                )}
             </button>
 
             <h3 className="text-xl font-semibold w-32 text-center">
