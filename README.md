@@ -1,73 +1,15 @@
-# React + TypeScript + Vite
+# Sensor Monitoring Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a full-stack project implementing a dashboard for real-time monitoring of the status and consumption of an IoT sensor system (e.g., smart dispensers in restrooms).
 
-Currently, two official plugins are available:
+The **frontend** is built with **React** and **TypeScript**, using **Vite** as the bundler. The modern, responsive UI is built with **Tailwind CSS**. Server-side state management and data fetching are efficiently handled by **TanStack Query** (`useQuery`, `useMutation`). Data visualizations are rendered using **Recharts** for bar charts and **react-circular-progressbar** for refill gauges.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The **backend** is a **Node.js** server built with **Express** and **TypeScript**. It connects to a **MongoDB** database for data persistence. It includes a RESTful API, server-side schema validation with **Zod**, and **CORS** handling for secure communication with the frontend.
 
-## React Compiler
+## ✨ Key Features
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+* **Sensor Status:** Displays the real-time status (Active/Inactive) of all devices.
+* **Refill Report:** Donut charts showing the remaining percentage of consumables (e.g., soap, towels).
+* **Historic Consumption:** Stat cards summarizing total consumption.
+* **Consumption by Period:** A dynamic reporting panel with bar charts, allowing filtering by day, month, or year.
+* **Last Records:** A table displaying the latest events received from the sensors.
