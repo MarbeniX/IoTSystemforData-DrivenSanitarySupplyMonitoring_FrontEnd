@@ -38,14 +38,14 @@ export default function SimpleStatCard({
 
                 <strong className="text-lg font-bold text-neutral-900">
                     {sensorType === ESPType.SOAP && soapDispensePerUse
-                        ? (value * soapDispensePerUse) / 1000
+                        ? ((value * soapDispensePerUse) / 1000).toFixed(2)
                         : sensorType === ESPType.TANK && tankFlushCapacity
                         ? value * tankFlushCapacity
                         : sensorType === ESPType.TOWEL && towelLengthPerUse
-                        ? (value * towelLengthPerUse) / 100
+                        ? ((value * towelLengthPerUse) / 100).toFixed(2)
                         : sensorType === ESPType.PAPER
                         ? value
-                        : totalSec! / 60}
+                        : (totalSec! / 60).toFixed(2)}
                 </strong>
             </div>
         </div>

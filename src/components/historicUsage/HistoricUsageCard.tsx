@@ -37,14 +37,14 @@ export default function StatCard({
             <div className="flex flex-col justify-between w-full gap-2">
                 <strong className="text-3xl font-bold text-neutral-900">
                     {sensorType === ESPType.SOAP && soapDispensePerUse
-                        ? (count * soapDispensePerUse) / 1000
+                        ? ((count * soapDispensePerUse) / 1000).toFixed(2)
                         : sensorType === ESPType.TANK && tankFlushCapacity
                         ? count * tankFlushCapacity
                         : sensorType === ESPType.TOWEL && towelLengthPerUse
-                        ? (count * towelLengthPerUse) / 100
+                        ? ((count * towelLengthPerUse) / 100).toFixed(2)
                         : sensorType === ESPType.PAPER
                         ? count
-                        : totalSec! / 60}
+                        : (totalSec! / 60).toFixed(2)}
                 </strong>
                 <span className="text-sm text-[#6B6E6C]">{unit}</span>
             </div>
