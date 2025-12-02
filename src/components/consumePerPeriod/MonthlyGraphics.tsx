@@ -17,6 +17,7 @@ type MonthlyGraphicsProps = {
     setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
     viewMode: ViewMode;
     dateStatus: "past" | "present" | "future";
+    oldestRecordTimestamp: string | null;
 };
 
 const formatDayLabel = (dateString: string): string => {
@@ -37,6 +38,7 @@ export default function MonthlyGraphics({
     viewMode,
     handleReturnToActual,
     dateStatus,
+    oldestRecordTimestamp,
 }: MonthlyGraphicsProps) {
     const transformedWeeklyData = useMemo((): TransformedWeek[] => {
         if (!data || viewMode !== "month" || !data.result) {
@@ -93,38 +95,50 @@ export default function MonthlyGraphics({
     return (
         <>
             <div className="flex items-center justify-center gap-4 mb-4">
-                {dateStatus === "future" && (
-                    <ButtonGetToCurrentDate
-                        handleFunction={handleReturnToActual}
-                        icon={1}
-                    />
-                )}
+                {oldestRecordTimestamp && (
+                    <>
+                        {dateStatus === "future" && (
+                            <ButtonGetToCurrentDate
+                                handleFunction={handleReturnToActual}
+                                icon={1}
+                            />
+                        )}
 
-                <button
-                    onClick={handlePrevMonth}
-                    className="text-neutral-600 cursor-pointer"
-                    disabled={currentDate.getMonth() === 0}
-                >
-                    {currentDate.getMonth() === 0 ? null : <FaChevronLeft />}
-                </button>
+                        <button
+                            onClick={handlePrevMonth}
+                            className="text-neutral-600 cursor-pointer"
+                            disabled={currentDate.getMonth() === 0}
+                        >
+                            {currentDate.getMonth() === 0 ? null : (
+                                <FaChevronLeft />
+                            )}
+                        </button>
+                    </>
+                )}
 
                 <h3 className="text-xl font-semibold w-32 text-center capitalize">
                     {currentMonthName}
                 </h3>
 
-                <button
-                    onClick={handleNextMonth}
-                    className="text-neutral-600 cursor-pointer"
-                    disabled={currentDate.getMonth() === 11}
-                >
-                    {currentDate.getMonth() === 11 ? null : <FaChevronRight />}
-                </button>
+                {oldestRecordTimestamp && (
+                    <>
+                        <button
+                            onClick={handleNextMonth}
+                            className="text-neutral-600 cursor-pointer"
+                            disabled={currentDate.getMonth() === 11}
+                        >
+                            {currentDate.getMonth() === 11 ? null : (
+                                <FaChevronRight />
+                            )}
+                        </button>
 
-                {dateStatus === "past" && (
-                    <ButtonGetToCurrentDate
-                        handleFunction={handleReturnToActual}
-                        icon={2}
-                    />
+                        {dateStatus === "past" && (
+                            <ButtonGetToCurrentDate
+                                handleFunction={handleReturnToActual}
+                                icon={2}
+                            />
+                        )}
+                    </>
                 )}
             </div>
 

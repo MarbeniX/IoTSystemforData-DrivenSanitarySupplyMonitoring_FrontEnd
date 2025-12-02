@@ -45,7 +45,9 @@ export default function StatCard({
                             ? ((count * towelLengthPerUse) / 100).toFixed(2)
                             : sensorType === ESPType.PAPER
                             ? count
-                            : (totalSec! / 60).toFixed(2)}
+                            : totalSec
+                            ? (totalSec / 60).toFixed(2)
+                            : "0"}
                     </strong>
                     <span className="text-sm text-[#6B6E6C]">{unit}</span>
                 </div>

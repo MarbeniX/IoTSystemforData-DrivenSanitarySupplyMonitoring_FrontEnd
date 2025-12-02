@@ -112,6 +112,7 @@ export default function ConsumptionReport({
                                 viewMode={viewMode}
                                 dateStatus={dateStatus}
                                 handleReturnToActual={handleReturnToActual}
+                                oldestRecordTimestamp={oldestRecordTimestamp}
                             />
                         )}
 
@@ -123,6 +124,7 @@ export default function ConsumptionReport({
                                 viewMode={viewMode}
                                 dateStatus={dateStatus}
                                 handleReturnToActual={handleReturnToActual}
+                                oldestRecordTimestamp={oldestRecordTimestamp}
                             />
                         )}
                     </>

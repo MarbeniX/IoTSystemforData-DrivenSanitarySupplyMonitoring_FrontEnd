@@ -55,6 +55,7 @@ export default function GeneralConsume({
                     viewMode={viewMode}
                     currentDate={currentDate}
                     setCurrentDate={setCurrentDate}
+                    oldestRecordTimestamp={oldestRecordTimestamp}
                 />
 
                 {isLoading && <div className="text-center">Cargando...</div>}
