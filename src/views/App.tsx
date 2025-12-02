@@ -8,45 +8,73 @@ import LastRecordsDashboard from "../components/LastRecords";
 import ConsumptionReport from "../components/consumePerPeriod/ComsumptionReport";
 import { getSensorTypeConfig } from "../services/SensorTypeConfig";
 import GeneralConsume from "../components/generalConsume/GeneralConsume";
+import { getOldestRecordTimestamp } from "../services/Records";
 
 export default function App() {
-    const { data, isLoading, isError, error } = useQuery({
+    const {
+        data: CDData,
+        isLoading: CDisLoading,
+        isError: CDisError,
+        error: CDError,
+    } = useQuery({
         queryKey: ["configData"],
         queryFn: getSensorTypeConfig,
     });
 
-    if (isLoading) return <div>Loading...</div>;
-    if (isError) return <div>Error: {(error as Error).message}</div>;
+    const {
+        data: ORData,
+        isLoading: ORisLoading,
+        isError: ORisError,
+        error: ORError,
+    } = useQuery({
+        queryKey: ["oldestRecord"],
+        queryFn: getOldestRecordTimestamp,
+    });
 
-    if (data)
+    if (CDisLoading && ORisLoading) return <div>Loading...</div>;
+    if (CDisError && ORisError)
+        return (
+            <div>
+                Error: {(CDError as Error).message}
+                Error: {(ORError as Error).message}
+            </div>
+        );
+    if (CDData)
         return (
             <div className="min-h-screen bg-gray-100 p-6">
                 <main className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2 flex flex-col gap-6">
                         <SensorsStatesComponent />
                         <HistoricUsage
-                            soapDispensePerUse={data.data.soapDispensePerUse}
-                            tankFlushCapacity={data.data.tankFlushCapacity}
-                            towelLengthPerUse={data.data.towelLengthPerUse}
+                            soapDispensePerUse={CDData.data.soapDispensePerUse}
+                            tankFlushCapacity={CDData.data.tankFlushCapacity}
+                            towelLengthPerUse={CDData.data.towelLengthPerUse}
                         />
                         <div className="md:grid-cols-1 lg:flex gap-6">
                             <GeneralConsume
                                 soapDispensePerUse={
-                                    data.data.soapDispensePerUse
+                                    CDData.data.soapDispensePerUse
                                 }
-                                tankFlushCapacity={data.data.tankFlushCapacity}
-                                towelLengthPerUse={data.data.towelLengthPerUse}
+                                tankFlushCapacity={
+                                    CDData.data.tankFlushCapacity
+                                }
+                                towelLengthPerUse={
+                                    CDData.data.towelLengthPerUse
+                                }
+                                oldestRecordTimestamp={ORData ? ORData : null}
                             />
-                            <ConsumptionReport />
+                            <ConsumptionReport
+                                oldestRecordTimestamp={ORData ? ORData : null}
+                            />
                         </div>
                     </div>
 
                     <div className="flex flex-col gap-6">
                         <RefillDashboard
-                            soapCapacity={data.data.soapCapacity}
-                            soapDispensePerUse={data.data.soapDispensePerUse}
-                            totalTowelLength={data.data.totalTowelLength}
-                            towelLengthPerUse={data.data.towelLengthPerUse}
+                            soapCapacity={CDData.data.soapCapacity}
+                            soapDispensePerUse={CDData.data.soapDispensePerUse}
+                            totalTowelLength={CDData.data.totalTowelLength}
+                            towelLengthPerUse={CDData.data.towelLengthPerUse}
                         />
                         <LastRecordsDashboard />
                     </div>

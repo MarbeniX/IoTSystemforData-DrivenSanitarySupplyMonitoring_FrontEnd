@@ -86,6 +86,11 @@ export const MonthlyOrYearlyRecordsBySupplyTypeSchema = z.object({
     result: z.array(RecordEntrySchema),
 });
 
+export const OldestRecordSchema = z.object({
+    message: z.string(),
+    result: z.string() || null,
+});
+
 export const DayMonthOrYearSuppliesRecordsSchema = SupplyHistoricArraySchema;
 
 export type ESP32TypesArray = z.infer<typeof ESP32TypesArraySchema>;

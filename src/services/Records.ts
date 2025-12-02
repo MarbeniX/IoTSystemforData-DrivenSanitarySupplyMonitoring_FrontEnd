@@ -4,6 +4,7 @@ import {
     DayMonthOrYearSuppliesRecordsSchema,
     LatestRecordsSchema,
     MonthlyOrYearlyRecordsBySupplyTypeSchema,
+    OldestRecordSchema,
     SupplyHistoricArraySchema,
     TodaySoapTowelSummarySchema,
     type DayMonthOrYearSuppliesRecords,
@@ -88,6 +89,22 @@ export async function getSuppliesRecordsByDayOrMonthOrYear(
             response.data
         );
         return parsedData;
+    } catch (error) {
+        throw new Error(
+            isAxiosError(error)
+                ? `API Error: ${error.response?.status} ${error.response?.statusText}`
+                : "An unexpected error occurred"
+        );
+    }
+}
+
+export async function getOldestRecordTimestamp(): Promise<string> {
+    try {
+        const url = "/records/oldest-record-timestamp";
+        const response = await apiClient.get(url);
+        const parsedData = OldestRecordSchema.parse(response.data);
+        console.log(parsedData);
+        return parsedData.result;
     } catch (error) {
         throw new Error(
             isAxiosError(error)

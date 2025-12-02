@@ -24,7 +24,7 @@ export default function StatCard({
     towelLengthPerUse,
 }: StatCardProps) {
     return (
-        <div className="flex flex-col items-center bg-white rounded-2xl py-3 shadow-md border-[#919492] border-2 px-6">
+        <div className="flex flex-col bg-white rounded-2xl py-3 shadow-md border-[#919492] border-2 px-6">
             <div className="flex justify-between items-center w-full">
                 <span className="text-2xl font-medium text-neutral-700">
                     {label}
@@ -34,19 +34,34 @@ export default function StatCard({
                 </div>
             </div>
 
-            <div className="flex flex-col justify-between w-full gap-2">
-                <strong className="text-3xl font-bold text-neutral-900">
-                    {sensorType === ESPType.SOAP && soapDispensePerUse
-                        ? ((count * soapDispensePerUse) / 1000).toFixed(2)
-                        : sensorType === ESPType.TANK && tankFlushCapacity
-                        ? count * tankFlushCapacity
-                        : sensorType === ESPType.TOWEL && towelLengthPerUse
-                        ? ((count * towelLengthPerUse) / 100).toFixed(2)
-                        : sensorType === ESPType.PAPER
-                        ? count
-                        : (totalSec! / 60).toFixed(2)}
-                </strong>
-                <span className="text-sm text-[#6B6E6C]">{unit}</span>
+            <div className="flex w-full justify-between">
+                <div className="flex flex-col w-full gap-2">
+                    <strong className="text-3xl font-bold text-neutral-900">
+                        {sensorType === ESPType.SOAP && soapDispensePerUse
+                            ? ((count * soapDispensePerUse) / 1000).toFixed(2)
+                            : sensorType === ESPType.TANK && tankFlushCapacity
+                            ? count * tankFlushCapacity
+                            : sensorType === ESPType.TOWEL && towelLengthPerUse
+                            ? ((count * towelLengthPerUse) / 100).toFixed(2)
+                            : sensorType === ESPType.PAPER
+                            ? count
+                            : (totalSec! / 60).toFixed(2)}
+                    </strong>
+                    <span className="text-sm text-[#6B6E6C]">{unit}</span>
+                </div>
+
+                {sensorType === ESPType.TANK ||
+                sensorType === ESPType.SOAP ||
+                sensorType === ESPType.TOWEL ? (
+                    <div className="flex flex-col text-right w-full gap-2">
+                        <strong className="text-3xl font-bold text-neutral-900">
+                            {count}
+                        </strong>
+                        <span className="text-sm text-[#6B6E6C]">
+                            Activaciones
+                        </span>
+                    </div>
+                ) : null}
             </div>
         </div>
     );

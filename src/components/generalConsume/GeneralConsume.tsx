@@ -13,12 +13,14 @@ type GeneralConsumeProps = {
     soapDispensePerUse: number;
     tankFlushCapacity: number;
     towelLengthPerUse: number;
+    oldestRecordTimestamp: string | null;
 };
 
 export default function GeneralConsume({
     soapDispensePerUse,
     tankFlushCapacity,
     towelLengthPerUse,
+    oldestRecordTimestamp,
 }: GeneralConsumeProps) {
     const [viewMode, setViewMode] = useState<ViewMode>("day");
     const [currentDate, setCurrentDate] = useState(new Date());

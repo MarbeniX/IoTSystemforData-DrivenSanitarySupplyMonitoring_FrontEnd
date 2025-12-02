@@ -15,7 +15,13 @@ import MonthlyGraphics from "./MonthlyGraphics";
 import YearlyGraphics from "./YearlyGraphics";
 import SupplySelector from "./SupplySelector";
 
-export default function ConsumptionReport() {
+type ConsumptionReportProps = {
+    oldestRecordTimestamp: string | null;
+};
+
+export default function ConsumptionReport({
+    oldestRecordTimestamp,
+}: ConsumptionReportProps) {
     const [viewMode, setViewMode] = useState<ViewMode>("month");
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isMenuOpen, setIsMenuOpen] = useState(false);
